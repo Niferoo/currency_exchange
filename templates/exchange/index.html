@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+        <div>
+            <label for="">Input value</label>
+            <input type="text" placeholder="Введите число"{% if from_amount %}value="{{ from_amount }}"
+            {% endif %}  name="from_amount">
+            <select name="from_curr" id="from_curr" value="{{ from_curr }}">
+                {% for curr in currensies %}
+                	<option value="{{ curr }}" {% if from_curr == curr %}
+                		selected
+                	{% endif %} >{{ curr }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="">Output value</label>
+            {% if converted_amount %}
+                <p>{{ converted_amount }}</p>
+            {% endif %}
+            <select name="to_curr" id="to_curr" value="{{ to_curr }}">
+                {% for curr in currensies %}
+                	<option value="{{ curr }}" {% if to_curr == curr %}
+                		selected
+                	{% endif %} >{{ curr }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">Exchange</button>
+    </form>
+{% endblock %}
